@@ -1,0 +1,6 @@
+name: BanItemList
+main: pers.tuershen.banitemlist.BanItemListMain
+version: 1.0
+author: 兔儿神
+commands:
+  blist:

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BanItemList">
+    <output-path>$PROJECT_DIR$/../../1.12.2服务端/plugins</output-path>
+    <root id="archive" name="BanItemList.jar">
+      <element id="module-output" name="BanItemList.main" />
+      <element id="file-copy" path="$PROJECT_DIR$/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

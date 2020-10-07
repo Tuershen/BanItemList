@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+
+processResources {
+    from('src/main/resources/') {
+        include 'config.yml'
+        include 'plugin.yml'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+group 'org.example'
+version '1.0-RELEASE'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation files('lib/craftbukkit-1.12.2.jar')
+
+}
