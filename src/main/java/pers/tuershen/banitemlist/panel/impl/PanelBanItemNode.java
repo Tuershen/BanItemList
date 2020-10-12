@@ -32,20 +32,31 @@ public class PanelBanItemNode extends PanelFinal implements InventoryHolder {
     //显示最大数量
     private static final int PANEL_SIZE = 45;
 
+    public static Inventory setDefaultNodePanel(PanelBanItemNode itemNode){
+        Inventory inventory = Bukkit.createInventory(itemNode, MAX_SLOT, itemNode.itemGroup.getName().replace('&','§'));
+        for (int i = 45; i <= 53; i++) {
+            inventory.setItem(i, InventoryUtil.functionItem());
+        }
+        inventory.setItem(PREVIOUS_SLOT_POS, InventoryUtil.previousButton());
+        inventory.setItem(MIDDLE_SLOT_POS, InventoryUtil.middleButton());
+        inventory.setItem(NEXT_SLOT_POS, InventoryUtil.nextButton());
+        return inventory;
+    }
+
+
     public PanelBanItemNode(BanItemGroup itemGroup){
         this.itemGroup = itemGroup;
         Map<String, ItemNode> itemNodeMap = this.itemGroup.getItemNodeMap();
         Iterator<String> iterator = itemNodeMap.keySet().iterator();
         int slot = 0;
         int pos = 1;
-        int nullNumber = 0;
         Inventory inventory = setDefaultNodePanel(this);
         while (iterator.hasNext()) {
             String next = iterator.next();
             ItemNode itemNode = this.itemGroup.getItemNodeMap().get(next);
             ItemStack itemStack = InventoryUtil.setGroupMeta(BanItemListMain.libraryApi.getSerializeItem().deserialize(itemNode.getBase64()));
             List<String> lore  = itemNode.getLore();
-            if (slot >= PANEL_SIZE || pos == (itemNodeMap.size() + nullNumber)) {
+            if (slot >= PANEL_SIZE || pos == itemNodeMap.size()) {
                 inventory.setItem(slot,InventoryUtil.setMeta(itemStack,lore));
                 this.inventoryList.add(inventory);
                 inventory = setDefaultNodePanel(this);
@@ -57,19 +68,12 @@ public class PanelBanItemNode extends PanelFinal implements InventoryHolder {
             slot++;
             pos++;
         }
-        this.panel = this.inventoryList.size() <= 0 ? inventory : this.inventoryList.get(nowPage);
+        if (this.inventoryList.size() <= 0) {
+            this.inventoryList.add(inventory);
+        }
+        this.panel = this.inventoryList.get(nowPage);
     }
 
-    public static Inventory setDefaultNodePanel(PanelBanItemNode itemNode){
-        Inventory inventory = Bukkit.createInventory(itemNode, MAX_SLOT, itemNode.itemGroup.getName().replace('&','§'));
-        for (int i = 45; i <= 53; i++) {
-            inventory.setItem(i, InventoryUtil.functionItem());
-        }
-        inventory.setItem(PREVIOUS_SLOT_POS, InventoryUtil.previousButton());
-        inventory.setItem(MIDDLE_SLOT_POS, InventoryUtil.middleButton());
-        inventory.setItem(NEXT_SLOT_POS, InventoryUtil.nextButton());
-        return inventory;
-    }
 
     @Override
     public Inventory getInventory() {

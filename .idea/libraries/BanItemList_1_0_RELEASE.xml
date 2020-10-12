@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BanItemList-1.0-RELEASE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/libs/BanItemList-1.0-RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
